@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'screens/login_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,11 +13,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'تطبيق الأمين الشرعي',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF006400)), // Green for Guardian
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF006400)),
         useMaterial3: true,
-        fontFamily: 'Cairo', // Preferred Arabic font
+        fontFamily: 'Cairo',
       ),
-      home: const MyHomePage(title: 'بوابة الأمين الشرعي'),
+      home: const LoginScreen(),
       builder: (context, child) {
         return Directionality(
           textDirection: TextDirection.rtl,
@@ -27,13 +28,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
