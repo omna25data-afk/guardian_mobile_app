@@ -123,7 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 32),
                 Text(
-                  'تطبيق إدارة قلم التوثيق',
+                  'نظام إدارة قلم التوثيق', // Corrected System Name
                   style: GoogleFonts.tajawal(textStyle: textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold, color: const Color(0xFF006400))),
                 ),
                 const SizedBox(height: 8),
