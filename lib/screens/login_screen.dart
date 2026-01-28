@@ -56,6 +56,8 @@ class _LoginScreenState extends State<LoginScreen> {
              await prefs.setString('token', data['token'] ?? data['access_token']);
              await prefs.setString('user_data', jsonEncode(user));
 
+             if (!mounted) return;
+
              ScaffoldMessenger.of(context).showSnackBar(
                SnackBar(content: Text('تم تسجيل الدخول بنجاح!', style: GoogleFonts.tajawal()), backgroundColor: Colors.green),
              );

@@ -9,41 +9,36 @@
 .history
 .svn/
 
-# IntelliJ related
-*.iml
-*.ipr
-*.iws
-.idea/
-
-# The .vscode folder contains the workspace configuration errors
-.vscode/
-
-# Flutter/Dart/Pub related
-**/doc/api/
+# Flutter/Dart
 .dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
 .packages
 .pub-cache/
 .pub/
-/build/
+build/
 
-# Android related
-**/android/flutter/
-**/android/local.properties
-**/android/app/src/main/assets/flutter_assets/
-**/android/app/src/main/res/raw/
-**/android/app/src/main/jniLibs/
-**/android/app/build.gradle
-**/android/gradle.properties
-**/android/gradle/wrapper/gradle-wrapper.properties
+# IDEs
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
 
-# iOS/Mac related
-**/ios/Flutter/App.framework
-**/ios/Flutter/Flutter.framework
-**/ios/Flutter/Generated.xcconfig
-**/ios/ServiceDefinitions.json
-**/ios/Runner/GeneratedPluginRegistrant.*
+# Android
+/android/app/src/main/java/io/flutter/plugins/
+/android/app/build/
+/android/.gradle/
+/android/local.properties
 
-# Exceptions to above rules.
-!/android/app/src/main/res/raw/keep.xml
+# iOS
+/ios/Pods/
+/ios/Flutter/App.framework
+/ios/Flutter/Flutter.framework
+/ios/Flutter/engine
+/ios/Flutter/flutter_assets
+/ios/.symlinks
+/ios/Runner.xcworkspace
+/ios/Runner.xcodeproj/project.xcworkspace
+/ios/Runner.xcodeproj/xcuserdata
+
