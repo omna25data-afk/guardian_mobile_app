@@ -7,11 +7,16 @@ import '../models/user_model.dart';
 class AuthRepository {
   final _storage = const FlutterSecureStorage();
 
-  Future<User> login(String email, String password) async {
+  Future<User> login(String phoneNumber, String password) async { 
+    // Changed parameter from email to phoneNumber
+    
     final response = await http.post(
       Uri.parse(ApiConstants.login),
       headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
-      body: jsonEncode({'email': email, 'password': password}),
+      body: jsonEncode({
+        'phone_number': phoneNumber, // Send phone_number as expected by backend
+        'password': password
+      }),
     );
 
     if (response.statusCode == 200) {
