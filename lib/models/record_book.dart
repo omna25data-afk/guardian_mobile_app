@@ -2,29 +2,44 @@ import 'package:flutter/material.dart';
 
 class RecordBook {
   final int id;
-  final int number; // Changed from book_number
-  final String title; // Changed from name
-  final String contractType; // Changed from contract_type_name
+  final int bookNumber;
+  final String name;
+  final String contractTypeName;
   final int totalPages;
   final int constraintsCount;
-  final int usagePercentage; // Changed from used_percentage
+  final int usedPercentage;
   final String statusLabel;
-  final String statusColorName; // Changed from status_color
+  final String statusColor; // 'success', 'danger' etc.
 
   RecordBook({
     required this.id,
-    required this.number,
-    required this.title,
-    required this.contractType,
+    required this.bookNumber,
+    required this.name,
+    required this.contractTypeName,
     required this.totalPages,
     required this.constraintsCount,
-    required this.usagePercentage,
+    required this.usedPercentage,
     required this.statusLabel,
-    required this.statusColorName,
+    required this.statusColor,
   });
 
-  Color get statusColor {
-    switch (statusColorName) {
+  factory RecordBook.fromJson(Map<String, dynamic> json) {
+    return RecordBook(
+      id: json['id'] ?? 0,
+      bookNumber: json['book_number'] ?? 0,
+      name: json['name'] ?? '',
+      contractTypeName: json['contract_type_name'] ?? '',
+      totalPages: json['total_pages'] ?? 0,
+      constraintsCount: json['constraints_count'] ?? 0,
+      usedPercentage: json['used_percentage'] ?? 0,
+      statusLabel: json['status_label'] ?? '',
+      statusColor: json['status_color'] ?? 'grey',
+    );
+  }
+
+  // FIXED: Renamed getter from a_color to color for convention
+  Color get color {
+    switch (statusColor) {
       case 'success':
         return Colors.green;
       case 'danger':
@@ -34,19 +49,5 @@ class RecordBook {
       default:
         return Colors.grey;
     }
-  }
-
-  factory RecordBook.fromJson(Map<String, dynamic> json) {
-    return RecordBook(
-      id: json['id'] as int? ?? 0,
-      number: json['book_number'] as int? ?? 0, // Mapped from book_number
-      title: json['name'] as String? ?? '', // Mapped from name
-      contractType: json['contract_type_name'] as String? ?? '', // Mapped from contract_type_name
-      totalPages: json['total_pages'] as int? ?? 0,
-      constraintsCount: json['constraints_count'] as int? ?? 0,
-      usagePercentage: (json['used_percentage'] as num? ?? 0).toInt(), // Mapped from used_percentage and ensured as int
-      statusLabel: json['status_label'] as String? ?? '',
-      statusColorName: json['status_color'] as String? ?? '', // Mapped from status_color
-    );
   }
 }
