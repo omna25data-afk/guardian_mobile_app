@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:guardian_app/screens/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -40,8 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
         }),
       );
 
-      print('Response Status: ${response.statusCode}');
-      print('Response Body: ${response.body}');
+      if (!mounted) return;
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
@@ -55,12 +56,15 @@ class _LoginScreenState extends State<LoginScreen> {
              await prefs.setString('token', data['token'] ?? data['access_token']);
              await prefs.setString('user_data', jsonEncode(user));
 
-             if (mounted) {
-               ScaffoldMessenger.of(context).showSnackBar(
-                 const SnackBar(content: Text('تم تسجيل الدخول بنجاح!'), backgroundColor: Colors.green),
-               );
-               // Navigate to Home (TODO)
-             }
+             ScaffoldMessenger.of(context).showSnackBar(
+               SnackBar(content: Text('تم تسجيل الدخول بنجاح!', style: GoogleFonts.tajawal()), backgroundColor: Colors.green),
+             );
+
+             Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const HomeScreen()),
+              );
+
            } else {
              setState(() {
                _errorMessage = 'عذراً، هذا الحساب ليس حساب أمين شرعي.';
@@ -77,9 +81,11 @@ class _LoginScreenState extends State<LoginScreen> {
         });
       }
     } catch (e) {
-      setState(() {
-        _errorMessage = 'حدث خطأ: $e';
-      });
+      if(mounted) {
+        setState(() {
+          _errorMessage = 'حدث خطأ غير متوقع: $e';
+        });
+      }
     } finally {
       if (mounted) {
         setState(() {
@@ -91,6 +97,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
       backgroundColor: Colors.grey[100],
       body: Center(
@@ -103,23 +111,23 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 Image.asset('assets/images/ministry_logo.jpg', height: 120),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   'وزارة العدل وحقوق الإنسان',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF333333)),
+                  style: GoogleFonts.tajawal(textStyle: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, color: const Color(0xFF333333))),
                 ),
-                const Text(
+                Text(
                   'محكمة السياني الإبتدائية',
-                  style: TextStyle(fontSize: 16, color: Color(0xFF555555)),
+                  style: GoogleFonts.tajawal(textStyle: textTheme.bodyLarge?.copyWith(color: const Color(0xFF555555))),
                 ),
                 const SizedBox(height: 32),
-                const Text(
+                Text(
                   'تطبيق إدارة قلم التوثيق',
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Color(0xFF006400)),
+                  style: GoogleFonts.tajawal(textStyle: textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold, color: const Color(0xFF006400))),
                 ),
                 const SizedBox(height: 8),
-                const Text(
+                Text(
                   'بوابة الأمين الشرعي',
-                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: Color(0xFF006400)),
+                   style: GoogleFonts.tajawal(textStyle: textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold, color: const Color(0xFF006400))),
                 ),
                 const SizedBox(height: 48),
                 if (_errorMessage.isNotEmpty)
@@ -133,7 +141,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     child: Text(
                       _errorMessage,
-                      style: const TextStyle(color: Colors.red),
+                      style: GoogleFonts.tajawal(color: Colors.red, fontWeight: FontWeight.w500),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -141,8 +149,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller: _phoneController,
                   keyboardType: TextInputType.phone,
                   textAlign: TextAlign.right,
+                  style: GoogleFonts.tajawal(),
                   decoration: InputDecoration(
                     labelText: 'رقم الجوال',
+                    labelStyle: GoogleFonts.tajawal(),
                     prefixIcon: const Icon(Icons.phone),
                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                     filled: true,
@@ -160,8 +170,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller: _passwordController,
                   obscureText: true,
                   textAlign: TextAlign.right,
+                  style: GoogleFonts.tajawal(),
                   decoration: InputDecoration(
                     labelText: 'كلمة المرور',
+                    labelStyle: GoogleFonts.tajawal(),
                     prefixIcon: const Icon(Icons.lock),
                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                     filled: true,
@@ -187,7 +199,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     child: _isLoading
                         ? const CircularProgressIndicator(color: Colors.white)
-                        : const Text('تسجيل الدخول', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                        : Text('تسجيل الدخول', style: GoogleFonts.tajawal(fontSize: 18, fontWeight: FontWeight.bold)),
                   ),
                 ),
               ],
