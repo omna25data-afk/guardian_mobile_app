@@ -1,6 +1,7 @@
 class ApiConstants {
   // Base URL for the API
-  static const String baseUrl = "https://darkturquoise-lark-306795.hostingersite.com/custom_filment/public/api";
+  // User confirmed the domain points directly to the app via symlink/public_html
+  static const String baseUrl = "https://darkturquoise-lark-306795.hostingersite.com/api";
   
   // Auth Endpoints
   static const String login = "$baseUrl/login";
