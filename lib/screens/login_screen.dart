@@ -26,8 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
     });
 
     try {
-      // Use the public IP of the server
-      final url = Uri.parse('http://194.5.156.129/api/login');
+      final url = Uri.parse('https://darkturquoise-lark-306795.hostingersite.com/guardian/api/login');
       
       final response = await http.post(
         url,
@@ -47,13 +46,11 @@ class _LoginScreenState extends State<LoginScreen> {
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         
-        // Validation Logic based on our latest API fixes
         if (data['status'] == true) {
            final user = data['user'];
            final isGuardian = user['is_guardian'] == true;
            
            if (isGuardian) {
-             // Save token
              final prefs = await SharedPreferences.getInstance();
              await prefs.setString('token', data['token'] ?? data['access_token']);
              await prefs.setString('user_data', jsonEncode(user));
@@ -104,11 +101,25 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(Icons.security, size: 100, color: Color(0xFF006400)),
+                Image.asset('assets/images/ministry_logo.jpg', height: 120),
+                const SizedBox(height: 16),
+                const Text(
+                  'وزارة العدل وحقوق الإنسان',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF333333)),
+                ),
+                const Text(
+                  'محكمة السياني الإبتدائية',
+                  style: TextStyle(fontSize: 16, color: Color(0xFF555555)),
+                ),
                 const SizedBox(height: 32),
                 const Text(
+                  'تطبيق إدارة قلم التوثيق',
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Color(0xFF006400)),
+                ),
+                const SizedBox(height: 8),
+                const Text(
                   'بوابة الأمين الشرعي',
-                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Color(0xFF006400)),
+                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: Color(0xFF006400)),
                 ),
                 const SizedBox(height: 48),
                 if (_errorMessage.isNotEmpty)
