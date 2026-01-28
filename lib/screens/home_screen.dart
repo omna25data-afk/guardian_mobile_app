@@ -274,8 +274,8 @@ class _RegistryEntriesListState extends State<RegistryEntriesList> {
                 margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 child: ListTile(
                   leading: Icon(Icons.description, color: entry.statusColor),
-                  title: Text('${entry.firstParty} - ${entry.secondParty}'),
-                  subtitle: Text('${entry.contractType} - ${entry.dateHijri}'),
+                  title: Text('${entry.firstPartyName} - ${entry.secondPartyName}'),
+                  subtitle: Text('${entry.contractTypeName} - ${entry.documentHijriDate}'),
                   trailing: Text(entry.statusLabel, style: TextStyle(color: entry.statusColor, fontWeight: FontWeight.bold)),
                 ),
               );

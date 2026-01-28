@@ -1,31 +1,15 @@
 import 'package:flutter/material.dart';
 
-// Helper function to map status color strings to Material Colors
-Color _mapStatusColor(String? colorName) {
-  switch (colorName) {
-    case 'success':
-      return Colors.green;
-    case 'warning':
-      return Colors.orange;
-    case 'danger':
-      return Colors.red;
-    default:
-      return Colors.grey; // A sensible default
-  }
-}
-
-/// Represents a record book as defined by the API.
-/// It uses clean, developer-friendly field names.
 class RecordBook {
   final int id;
-  final int number;           // Mapped from 'book_number'
-  final String title;          // Mapped from 'name'
-  final String contractType;   // Mapped from 'contract_type_name'
+  final int number; // Changed from book_number
+  final String title; // Changed from name
+  final String contractType; // Changed from contract_type_name
   final int totalPages;
-  final int usedPages;        // Mapped from 'constraints_count'
-  final int usagePercentage;  // Mapped from 'used_percentage'
+  final int constraintsCount;
+  final int usagePercentage; // Changed from used_percentage
   final String statusLabel;
-  final Color statusColor;
+  final String statusColorName; // Changed from status_color
 
   RecordBook({
     required this.id,
@@ -33,24 +17,36 @@ class RecordBook {
     required this.title,
     required this.contractType,
     required this.totalPages,
-    required this.usedPages,
+    required this.constraintsCount,
     required this.usagePercentage,
     required this.statusLabel,
-    required this.statusColor,
+    required this.statusColorName,
   });
 
-  /// Factory constructor to create a RecordBook instance from a JSON map.
+  Color get statusColor {
+    switch (statusColorName) {
+      case 'success':
+        return Colors.green;
+      case 'danger':
+        return Colors.red;
+      case 'warning':
+        return Colors.orange;
+      default:
+        return Colors.grey;
+    }
+  }
+
   factory RecordBook.fromJson(Map<String, dynamic> json) {
     return RecordBook(
-      id: json['id'] ?? 0,
-      number: json['book_number'] ?? 0,
-      title: json['name'] ?? 'غير معنون', // Default title
-      contractType: json['contract_type_name'] ?? 'غير محدد',
-      totalPages: json['total_pages'] ?? 0,
-      usedPages: json['constraints_count'] ?? 0, // Aliased as per instruction
-      usagePercentage: (json['used_percentage'] as num?)?.toInt() ?? 0,
-      statusLabel: json['status_label'] ?? 'غير معروف',
-      statusColor: _mapStatusColor(json['status_color']),
+      id: json['id'] as int? ?? 0,
+      number: json['book_number'] as int? ?? 0, // Mapped from book_number
+      title: json['name'] as String? ?? '', // Mapped from name
+      contractType: json['contract_type_name'] as String? ?? '', // Mapped from contract_type_name
+      totalPages: json['total_pages'] as int? ?? 0,
+      constraintsCount: json['constraints_count'] as int? ?? 0,
+      usagePercentage: (json['used_percentage'] as num? ?? 0).toInt(), // Mapped from used_percentage and ensured as int
+      statusLabel: json['status_label'] as String? ?? '',
+      statusColorName: json['status_color'] as String? ?? '', // Mapped from status_color
     );
   }
 }

@@ -1,44 +1,9 @@
-# Miscellaneous
-*.class
-*.log
-*.pyc
-*.swp
-.DS_Store
-.atom/
-.buildlog/
-.history
-.svn/
-
-# Flutter/Dart
-.dart_tool/
+# Flutter specific
 .flutter-plugins
 .flutter-plugins-dependencies
 .packages
-.pub-cache/
-.pub/
+.dart_tool/
 build/
 
-# IDEs
-.idea/
-.vscode/
-*.iml
-*.ipr
-*.iws
-
-# Android
-/android/app/src/main/java/io/flutter/plugins/
-/android/app/build/
-/android/.gradle/
-/android/local.properties
-
-# iOS
-/ios/Pods/
-/ios/Flutter/App.framework
-/ios/Flutter/Flutter.framework
-/ios/Flutter/engine
-/ios/Flutter/flutter_assets
-/ios/.symlinks
-/ios/Runner.xcworkspace
-/ios/Runner.xcodeproj/project.xcworkspace
-/ios/Runner.xcodeproj/xcuserdata
-
+# Documentation
+API_DOCUMENTATION.md
