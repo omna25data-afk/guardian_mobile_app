@@ -26,7 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
     });
 
     try {
-      final url = Uri.parse('https://darkturquoise-lark-306795.hostingersite.com/guardian/api/login');
+      final url = Uri.parse('https://darkturquoise-lark-306795.hostingersite.com/api/login');
       
       final response = await http.post(
         url,
